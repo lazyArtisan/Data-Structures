@@ -8,6 +8,7 @@ Purpose: Implementing the required functions for Question 1 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -90,7 +91,54 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	ListNode *cur;
+	cur = (ListNode *)malloc(sizeof(ListNode));
+	cur->item = item;
+
+	// head에 아무것도 없으면 헤드에 넣기
+	if (ll->head == NULL) {
+		ll->head = cur;
+		ll->size = 1;
+		return 0;
+	} else if(ll->head->item > cur->item){
+		cur->next = ll->head;
+		ll->head = cur;
+		ll->size++;
+		return 0;
+	} else if (ll->head->item == cur->item) {
+		free(cur);
+		return -1;
+	} else if (ll->size == 1) {
+		ll->head->next = cur;
+		ll->size = 2;
+		return 1;
+	} 
+	// 다음 노드가 넣으려는 노드보다 큰 노드를 찾을 때까지 탐색
+	int len = ll->size;
+	ListNode *ptr = ll->head;
+	for (int i = 0; i < len-1; i++) {
+		int nextNodeItem = ptr->next->item;
+		int curItem = cur->item;
+
+		// 다음 노드 값이 넣으려는 노드보다 크다면 
+		if(nextNodeItem >= curItem) {
+			// 다음 노드 값이 자신과 같다면 -1 리턴
+			if(nextNodeItem == curItem) {
+				free(cur);
+				return -1;
+			}
+			cur->next = ptr->next;
+			ptr->next = cur;
+			ll->size++;
+			return i;
+		}
+		ptr = ptr->next;
+	}
+
+	// 마지막 노드까지 탐색했는데 아무것도 없었다면
+	ptr->next = cur;
+	ll->size++;
+	return len;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
