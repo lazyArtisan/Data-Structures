@@ -112,7 +112,19 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	// 큐에서 데이터 빼서 스택에 담은 다음 큐에 다시 담아라~
+	Stack *rS;
+	rS = (Stack *)calloc(1,sizeof(Stack));
+	// rS->ll.size = 0; <- malloc으로 바꾸면 이거 추가
+
+	while(!(isEmptyQueue(q))){
+		push(rS, dequeue(q));
+	}
+	while(!(isEmptyStack(rS))){
+		enqueue(q, pop(rS));
+	}
+
+	free(rS);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
