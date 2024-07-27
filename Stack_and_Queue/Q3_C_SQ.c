@@ -9,6 +9,7 @@ Purpose: Implementing the required functions for Question 3 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdbool.h>
 
 //////////////////////////////////   linked list /////////////////////////////////
 
@@ -103,7 +104,16 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	bool isPC = true;
+	while(!isEmptyStack(s)){
+		int int_1 = pop(s);
+		int int_2 = pop(s);
+		if(!(int_1 + 1 == int_2 || int_1 - 1 == int_2)){
+			isPC = false;
+			break;
+		}
+	}
+	return isPC;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

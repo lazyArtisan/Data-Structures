@@ -116,7 +116,8 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	q->ll.head = ll->head;
+	q->ll.size = ll->size;
 }
 
 void removeOddValues(Queue *q)
