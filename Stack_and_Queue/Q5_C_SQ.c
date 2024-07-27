@@ -109,7 +109,11 @@ int main()
 
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	int saved = dequeue(q);
+	if (!(isEmptyQueue(q))){
+		recursiveReverse(q);
+	}
+	enqueue(q, saved);
 }
 
 //////////////////////////////////////////////////////////////////
