@@ -39,6 +39,7 @@ int removeNode(LinkedList *ll, int index);
 int main()
 {
 	int c, i;
+	c = 1;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -81,13 +82,13 @@ int main()
 			printList(&resultBackList);
 			printf("\n");
 			removeAllItems(&ll);
-			removeAllItems(&resultFrontList);
-			removeAllItems(&resultBackList);
+			// removeAllItems(&resultFrontList);
+			// removeAllItems(&resultBackList);
 			break;
 		case 0:
 			removeAllItems(&ll);
-			removeAllItems(&resultFrontList);
-			removeAllItems(&resultBackList);
+			// removeAllItems(&resultFrontList);
+			// removeAllItems(&resultBackList);
 			break;
 		default:
 			printf("Choice unknown;\n");
@@ -102,7 +103,28 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	ListNode *ptr = ll->head;
+	
+	if (ptr == NULL) {
+		return;
+	}
+
+	// 짝수면 그냥 2로 나누면 됨. 홀수면 2로 나누고 +1
+	int divLen = (ll->size % 2 == 0) ? ll->size / 2 : ll->size / 2 + 1;
+
+	// head에 넣어주고 연결 끊기
+	resultFrontList->head = ptr;
+	resultFrontList->size = divLen;
+	for (int i = 0; i < divLen-1; i++) {
+		ptr = ptr->next;
+	}
+	ListNode *backStart = ptr->next;
+	ptr->next = NULL;
+
+	resultBackList->head = backStart;
+	resultBackList->size = ll->size - divLen;
+
+	return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
