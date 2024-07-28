@@ -8,6 +8,7 @@ Purpose: Implementing the required functions for Question 7 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define MIN_INT -1000
 
@@ -104,7 +105,33 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	// 문자열 순회하면서 왼쪽 괄호 만나면 스택에 넣고
+	// 오른쪽 괄호 만나면 스택에서 뺀다
+	// 문자열 순회 완료했는데 스택 비어있으면 balanced
+
+	Stack *s;
+	s = (Stack *)calloc(1,sizeof(Stack));
+
+	for (char *ptr = expression; *ptr != '\0'; ptr++) {
+		if (*ptr == '{' || *ptr == '[' || *ptr == '(') {
+			push(s, *ptr);
+		} 
+		else if(*ptr == ')') {
+			if (pop(s) != '(') {
+				return true;
+			}
+		} else if(*ptr == ']') {
+			if (pop(s) != '[') {
+				return true;
+			}
+		} else if(*ptr == '}') {
+			if (pop(s) != '{') {
+				return true;
+			}
+		}
+	}
+	free(s);
+	return false;
 }
 
 ////////////////////////////////////////////////////////////

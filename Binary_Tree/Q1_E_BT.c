@@ -8,6 +8,7 @@ Purpose: Implementing the required functions for Question 1 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 //////////////////////////////////////////////////////////////////////////////////
 typedef struct _btnode{
@@ -116,7 +117,50 @@ int main()
 int identical(BTNode *tree1, BTNode *tree2)
 
 {
-   /* add your code here */
+    // 트리가 비어있을 경우 예외처리
+    if(tree1 == NULL || tree2 == NULL){
+        if(tree1 == tree2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 노드가 다르면 false 반환
+    if(tree1->item != tree2->item){
+        return false;
+    } else if(tree1->item == NULL) {
+        return true;
+    }
+    // 노드가 같은데
+    // 자식 중 NULL이 하나라도 있으면 둘 다 NULL인지 확인하고 탐색 종료
+    // 자식 중 NULL이 없으면 탐색 진행
+    else {
+        bool isLeftNULL = tree1->left == NULL || tree2->left == NULL;
+        bool isRightNULL = tree1->left == NULL || tree2->left == NULL;
+        
+        if(isLeftNULL){
+            if(tree1->left != tree2->left){
+                return false;
+            }
+        } else {
+            if(!(identical(tree1->left, tree2->left))){
+                return false;
+            }
+        }
+        
+        if(isRightNULL){
+            if(tree1->right != tree2->right){
+                return false;
+            }
+        } else {
+            if(!(identical(tree1->right, tree2->right))){
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////////

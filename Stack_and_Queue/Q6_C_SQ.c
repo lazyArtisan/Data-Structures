@@ -111,7 +111,17 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	// 스택 빌때까지 pop 시도하다가 
+	// 찾던 value 나오면 다시 스택에 넣고 종료
+	int seek = pop(s);
+
+	while(!(isEmptyStack(s))) {
+		if (seek == value) {
+			push(s,seek);
+			break;
+		}
+		seek = pop(s);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
