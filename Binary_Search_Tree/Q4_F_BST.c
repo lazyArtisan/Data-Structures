@@ -91,7 +91,33 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	BSTNode* p = NULL;
+	Stack *s;
+	s = malloc(sizeof(Stack));
+	s->top = NULL;
+	while (1) {
+		for (; root; root = root->left) {  // 왼쪽 아래까지 이동
+			push(s,root);
+		}
+
+		while (1) {
+			root = pop(s);
+			if (!root){
+				free(s);
+				return; 
+			}
+
+			if (!root->right || p == root->right) {
+				printf("[%d] ", root->item);
+				p = root;
+			}
+			else {
+				push(s,root);
+				root = root->right;
+				break;
+			}
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
