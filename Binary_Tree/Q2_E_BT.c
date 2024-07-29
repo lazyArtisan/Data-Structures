@@ -95,9 +95,24 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int maxHeight(BTNode *node)
-
 {
-    /* add your code here */
+    // NULL이 아니라면 그냥 넘어간다
+    // 꼬리 노드의 자식이라면 return -1
+    // 모든 maxheight는 여기서 시작한다
+    if(node==NULL)
+        return -1;
+
+    // l과 r에서 maxheight 받아오기
+    int l = maxHeight(node->left);
+    int r = maxHeight(node->right);
+
+    // l과 r 중 최댓값 반환
+    // 자식이 있는 노드는 여기서 return한다
+    if (l>r){
+        return l + 1;
+    } else {
+        return r + 1;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
